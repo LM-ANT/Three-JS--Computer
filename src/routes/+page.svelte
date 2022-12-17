@@ -82,6 +82,8 @@
 			loader.loadAsync('src/assets/models/blue.glb'),
 			loader.loadAsync('src/assets/models/body.glb'),
 			loader.loadAsync('src/assets/models/brackets.glb'),
+			loader.loadAsync('src/assets/models/bracketsLarge.glb'),
+			loader.loadAsync('src/assets/models/break.glb'),
 			loader.loadAsync('src/assets/models/c.glb'),
 			loader.loadAsync('src/assets/models/capsLock.glb'),
 			loader.loadAsync('src/assets/models/colon.glb'),
@@ -136,6 +138,7 @@
 			loader.loadAsync('src/assets/models/return.glb'),
 			loader.loadAsync('src/assets/models/s.glb'),
 			loader.loadAsync('src/assets/models/screen.glb'),
+			loader.loadAsync('src/assets/models/scroll.glb'),
 			loader.loadAsync('src/assets/models/shiftLeft.glb'),
 			loader.loadAsync('src/assets/models/shiftRight.glb'),
 			loader.loadAsync('src/assets/models/sept.glb'),
@@ -159,6 +162,7 @@
 			//foreach model in models import it in the scene
 			models.forEach((model) => {
 				const object = model.scene;
+				object.position.y = 0;
 				keyboard.push(object);
 				scene.add(object);
 			});
@@ -167,7 +171,7 @@
 					child.material.transparent = true;
 					child.material.opacity = 0.8;
 				}
-			}); 
+			});
 		});
 
 		//transparency of the keyboard[60]
@@ -175,47 +179,335 @@
 
 		//keypressed
 		document.addEventListener('keydown', (event) => {
-			const keyName = event.key;
-			console.log(keyName);
+			const keyName = event.code;
+			console.log(keyName)
 			switch (keyName) {
-				case 'a':
+				case 'KeyA':
 					keyboard[0].position.y = -0.01;
 					sound.play();
 					break;
-				case '-':
-					keyboard[1].position.y = -0.01;
-					sound.play();
-					break;
-				case 'é':
-					keyboard[2].position.y = -0.01;
-					sound.play();
-					break;
-				case '"':
-					keyboard[3].position.y = -0.01;
-					sound.play();
-					break;
-				case 'b':
+				case 'KeyB':
 					keyboard[4].position.y = -0.01;
 					sound.play();
 					break;
-				case '\\':
-					keyboard[5].position.y = -0.01;
+				case 'KeyC':
+					keyboard[12].position.y = -0.01;
 					sound.play();
 					break;
-				case '-':
+				case 'KeyD':
+					keyboard[17].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyE':
+					keyboard[21].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyF':
+					keyboard[27].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyG':
+					keyboard[34].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyH':
+					keyboard[35].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyI':
+					keyboard[37].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyJ':
+					keyboard[38].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyK':
+					keyboard[39].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyL':
+					keyboard[40].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyM':
+					keyboard[42].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyN':
+					keyboard[45].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyO':
+					keyboard[47].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyP':
+					keyboard[49].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyQ':
+					keyboard[55].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyR':
+					keyboard[59].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyS':
+					keyboard[64].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyT':
+					keyboard[73].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyU':
+					keyboard[77].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyV':
+					keyboard[79].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyW':
+					keyboard[80].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyX':
+					keyboard[82].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyY':
+					keyboard[83].position.y = -0.01;
+					sound.play();
+					break;
+				case 'KeyZ':
+					keyboard[84].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad0':
+					keyboard[85].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad1':
+					keyboard[78].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad2':
+					keyboard[19].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad3':
+					keyboard[75].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad4':
+					keyboard[56].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad5':
+					keyboard[15].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad6':
+					keyboard[70].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad7':
+					keyboard[69].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad8':
+					keyboard[36].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Numpad9':
+					keyboard[46].position.y = -0.01;
+					sound.play();
+					break;
+				case 'NumpadDecimal':
+					keyboard[53].position.y = -0.01;
+					sound.play();
+					break;
+				case 'NumpadEnter':
+					keyboard[22].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Space':
+					keyboard[71].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Tab':
+					keyboard[74].position.y = -0.01;
+					sound.play();
+					break;
+				case 'F1':
+					keyboard[28].position.y = -0.01;
+					sound.play();
+					break;
+				case 'F2':
+					keyboard[29].position.y = -0.01;
+					sound.play();
+					break;
+				case 'F3':
+					keyboard[30].position.y = -0.01;
+					sound.play();
+					break;
+				case 'F4':
+					keyboard[31].position.y = -0.01;
+					sound.play();
+					break;
+				case 'F5':
+					keyboard[32].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Escape':
+					keyboard[24].position.y = -0.01;
+					sound.play();
+					break;
+				case 'ShiftLeft':
+					keyboard[67].position.y = -0.01;
+					sound.play();
+					break;
+				case 'ShiftRight':
+					keyboard[68].position.y = -0.01;
+					sound.play();
+					break;
+				case 'CapsLock':
+					keyboard[13].position.y = -0.01;
+					sound.play();
+					break;
+				case 'ControlLeft':
+					keyboard[16].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Backspace':
 					keyboard[6].position.y = -0.01;
 					sound.play();
 					break;
-				case 'è':
-					keyboard[7].position.y = -0.01;
+				case 'Delete':
+					keyboard[18].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Enter':
+					keyboard[41].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit1':
+					keyboard[26].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit2':
+					keyboard[2].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit3':
+					keyboard[3].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit4':
+					keyboard[20].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit5':
+					keyboard[54].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit6':
+					keyboard[1].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit7':
+					keyboard[25].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit8':
+					keyboard[33].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit9':
+					keyboard[51].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Digit0':
+					keyboard[50].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Minus':
+					keyboard[44].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Equal':
+					keyboard[52].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Slash':
+					keyboard[57].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Semicolon':
+					keyboard[14].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Backslash':
+					keyboard[5].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Quote':
+					keyboard[58].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Comma':
+					keyboard[43].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Period':
+					keyboard[72].position.y = -0.01;
+					sound.play();
+					break;
+				case 'Backquote':
+					keyboard[76].position.y = -0.01;
 					sound.play();
 					break;
 				case 'ç':
-					keyboard[9].position.y = -0.01;
+					keyboard[74].position.y = -0.01;
 					sound.play();
 					break;
-				case 'à':
-					keyboard[10].position.y = -0.01;
+				case '-':
+					keyboard[75].position.y = -0.01;
+					sound.play();
+					break;
+				case 'é':
+					keyboard[76].position.y = -0.01;
+					sound.play();
+					break;
+				case '"':
+					keyboard[77].position.y = -0.01;
+					sound.play();
+					break;
+				case 'b':
+					keyboard[78].position.y = -0.01;
+					sound.play();
+					break;
+				case '\\':
+					keyboard[79].position.y = -0.01;
+					sound.play();
+					break;
+				case '-':
+					keyboard[80].position.y = -0.01;
+					sound.play();
+					break;
+				case 'è':
+					keyboard[81].position.y = -0.01;
+					sound.play();
+					break;
+				case 'è':
+					keyboard[82].position.y = -0.01;
+					sound.play();
+					break;
+				case 'è':
+					keyboard[83].position.y = -0.01;
 					sound.play();
 					break;
 			}
