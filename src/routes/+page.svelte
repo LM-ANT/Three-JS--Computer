@@ -1,13 +1,13 @@
 <script>
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
-	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+	import {vShader} from '../assets/shaders/vertexShader.js';
+	import {fShader} from '../assets/shaders/fragmentShader.js';
+	
 	import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-	import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-	import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-
+	
 
 	onMount(() => {
 		//RENDERER
@@ -17,6 +17,7 @@
 		document.body.appendChild(renderer.domElement);
 
 		const scene = new THREE.Scene();
+		scene.background = new THREE.Color(0xffcf82);
 
 		//CAMERA
 		const camera = new THREE.PerspectiveCamera(
@@ -70,21 +71,10 @@
 		scene.add(directionalLight3);
 		scene.add(directionalLight3.target);
 
-		
-		
-
-		
-
 		//AUDIO
-		const listener = new THREE.AudioListener();
-		camera.add(listener);
-		const sound = new THREE.Audio(listener);
-		const audioLoader = new THREE.AudioLoader();
-		audioLoader.load('src/assets/sounds/type.wav', function (buffer) {
-			sound.setBuffer(buffer);
-			sound.setLoop(false);
-			sound.setVolume(0.5);
-		});
+
+		const sound = new Audio('src/assets/sounds/type.wav');
+		let isPlaying = false;
 
 		const loader = new OBJLoader(loadingManager);
 		const textureLoader = new THREE.TextureLoader(loadingManager);
@@ -104,6 +94,19 @@
 			metalnessMap: metalnessMap
 		});
 
+		// Create the ShaderMaterial
+		const testmaterial = new THREE.RawShaderMaterial({
+			uniforms: {
+				time: { value: 0 },
+				lineCount: { value: 200 },
+				color1: { value: new THREE.Color(0x2a2b27) },
+				color2: { value: new THREE.Color(0x32332d) },
+				speed: { value: 5 }
+			},
+			vertexShader: vShader,
+			fragmentShader: fShader,
+		});
+
 		loader.load('src/assets/models/ordinateur.obj', function (obj) {
 			var model = obj;
 
@@ -114,305 +117,518 @@
 				}
 			});
 
-			keyboard.forEach((mesh) => {
-				scene.add(mesh);
-			});
-
 			document.addEventListener('keydown', (event) => {
 				const keyName = event.code;
 				switch (keyName) {
 					case 'KeyA':
 						keyboard[20].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyB':
 						keyboard[11].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyC':
 						keyboard[9].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyD':
 						keyboard[22].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyE':
 						keyboard[36].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyF':
 						keyboard[23].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyG':
 						keyboard[24].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyH':
 						keyboard[25].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyI':
 						keyboard[41].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyJ':
 						keyboard[26].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyK':
 						keyboard[27].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyL':
 						keyboard[28].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyM':
 						keyboard[13].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyN':
 						keyboard[12].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyO':
 						keyboard[42].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyP':
 						keyboard[43].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyQ':
 						keyboard[34].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyR':
 						keyboard[37].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyS':
 						keyboard[21].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyT':
 						keyboard[38].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyU':
 						keyboard[40].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyV':
 						keyboard[10].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyW':
 						keyboard[35].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyX':
 						keyboard[8].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyY':
 						keyboard[39].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'KeyZ':
 						keyboard[7].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad0':
 						keyboard[77].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad1':
 						keyboard[80].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad2':
 						keyboard[79].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad3':
 						keyboard[78].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad4':
 						keyboard[83].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad5':
 						keyboard[82].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad6':
 						keyboard[81].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad7':
 						keyboard[86].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad8':
 						keyboard[85].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Numpad9':
 						keyboard[84].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'NumpadDecimal':
 						keyboard[76].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'NumpadEnter':
 						keyboard[75].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Space':
 						keyboard[5].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Tab':
 						keyboard[33].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'F1':
 						keyboard[64].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'F2':
 						keyboard[65].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'F3':
 						keyboard[66].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'F4':
 						keyboard[67].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'F5':
 						keyboard[68].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Escape':
 						keyboard[48].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'ShiftLeft':
 						keyboard[6].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'ShiftRight':
 						keyboard[17].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'CapsLock':
 						keyboard[19].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'ControlLeft':
 						keyboard[3].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Backspace':
 						keyboard[62].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Delete':
 						keyboard[47].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Enter':
 						keyboard[46].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit1':
 						keyboard[49].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit2':
 						keyboard[50].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit3':
 						keyboard[51].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit4':
 						keyboard[52].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit5':
 						keyboard[53].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit6':
 						keyboard[54].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit7':
 						keyboard[55].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit8':
 						keyboard[56].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit9':
 						keyboard[57].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit0':
 						keyboard[58].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Minus':
 						keyboard[59].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Equal':
 						keyboard[60].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Slash':
 						keyboard[16].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Semicolon':
 						keyboard[29].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Backslash':
 						keyboard[45].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Quote':
 						keyboard[30].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Comma':
 						keyboard[14].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Period':
 						keyboard[15].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Backquote':
 						keyboard[61].position.y = -0.7;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 				}
 			});
 			document.addEventListener('keyup', (event) => {
 				const keyName = event.code;
+				isPlaying = false;
 				switch (keyName) {
 					case 'KeyA':
 						keyboard[20].position.y = 0;
@@ -593,7 +809,10 @@
 						break;
 					case 'Digit7':
 						keyboard[55].position.y = 0;
-						sound.play();
+						if (!isPlaying) {
+							sound.play();
+							isPlaying = true;
+						}
 						break;
 					case 'Digit8':
 						keyboard[56].position.y = 0;
@@ -634,15 +853,16 @@
 				}
 			});
 
-			//add shader material to keyboard[1]
 			
 
+			keyboard[1].material = testmaterial;
+
+			keyboard.forEach((mesh) => {
+				scene.add(mesh);
+			});
 		});
 
-		
-		
-
-
+		//add shadematerial
 
 		render();
 		window.addEventListener('resize', onWindowResize);
@@ -650,6 +870,7 @@
 		//RENDER
 		function render() {
 			requestAnimationFrame(render);
+			testmaterial.uniforms.time.value += 0.01;
 			renderer.render(scene, camera);
 		}
 
