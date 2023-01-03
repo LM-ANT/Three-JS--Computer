@@ -2,19 +2,30 @@
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 
-	import {vShader} from '../assets/shaders/vertexShader.js';
-	import {fShader} from '../assets/shaders/fragmentShader.js';
-	
+	import { vShader } from '../assets/shaders/vertexShader.js';
+	import { fShader } from '../assets/shaders/fragmentShader.js';
+
 	import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-	
+	import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+	import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+	import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
 	onMount(() => {
 		//RENDERER
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.shadowMap.enabled = true;
 		document.body.appendChild(renderer.domElement);
+
+		const labeRenderer = new CSS2DRenderer();
+		labeRenderer.setSize(window.innerWidth, window.innerHeight);
+		labeRenderer.domElement.style.position = 'absolute';	
+		labeRenderer.domElement.style.top = 0;
+		labeRenderer.domElement.style.pointerEvents = 'none';
+		document.body.appendChild(labeRenderer.domElement);
+
 
 		const scene = new THREE.Scene();
 		scene.background = new THREE.Color(0xffcf82);
@@ -50,29 +61,46 @@
 		const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 		directionalLight.position.set(0, 10, -10);
 		directionalLight.target.position.set(0, 0, 0);
+		directionalLight.castShadow = true;
 		scene.add(directionalLight);
 		scene.add(directionalLight.target);
 
 		const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1);
 		directionalLight1.position.set(10, 10, 0);
 		directionalLight1.target.position.set(0, 0, 0);
+		directionalLight1.castShadow = true;
 		scene.add(directionalLight1);
 		scene.add(directionalLight1.target);
 
 		const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
 		directionalLight2.position.set(-10, 10, 0);
 		directionalLight2.target.position.set(0, 0, 0);
+		directionalLight2.castShadow = true;
 		scene.add(directionalLight2);
 		scene.add(directionalLight2.target);
 
 		const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1);
 		directionalLight3.position.set(0, 10, 10);
 		directionalLight3.target.position.set(0, 0, 0);
+		directionalLight3.castShadow = true;
 		scene.add(directionalLight3);
 		scene.add(directionalLight3.target);
 
-		//AUDIO
+		const inputText = document.createElement('input');
+		inputText.textContent = 'test';
+		inputText.style.transform = 'preserve-3d';
+		inputText.style.position = 'fixed';
+		inputText.style.top = '50%';
+		inputText.style.left = '50%';
+		inputText.style.background ='rgba( 0, 0, 0, .6 )';
+		const label = new CSS2DObject(inputText);
+		label.position.set(0, 20, 0);
+		label.scale.set(0.1, 0.1, 0.1);
+		
+		scene.add(label);
 
+
+		//AUDIO
 		const sound = new Audio('src/assets/sounds/type.wav');
 		let isPlaying = false;
 
@@ -104,14 +132,18 @@
 				speed: { value: 5 }
 			},
 			vertexShader: vShader,
-			fragmentShader: fShader,
+			fragmentShader: fShader
 		});
+
+		
+		
 
 		loader.load('src/assets/models/ordinateur.obj', function (obj) {
 			var model = obj;
 
 			model.traverse(function (child) {
 				if (child instanceof THREE.Mesh) {
+					child.castShadow = true;
 					child.material = material;
 					keyboard.push(child);
 				}
@@ -853,16 +885,12 @@
 				}
 			});
 
-			
-
 			keyboard[1].material = testmaterial;
 
 			keyboard.forEach((mesh) => {
 				scene.add(mesh);
 			});
 		});
-
-		//add shadematerial
 
 		render();
 		window.addEventListener('resize', onWindowResize);
@@ -872,6 +900,7 @@
 			requestAnimationFrame(render);
 			testmaterial.uniforms.time.value += 0.01;
 			renderer.render(scene, camera);
+			labeRenderer.render(scene, camera);
 		}
 
 		//RESIZE
@@ -883,6 +912,7 @@
 			camera.updateProjectionMatrix();
 
 			renderer.setSize(width, height);
+			labeRenderer.setSize(width, height);
 		}
 	});
 </script>
@@ -896,6 +926,7 @@
 <style>
 	:global(*) {
 		margin: 0;
+		background-color: rgba(0, 0, 0, 0);
 	}
 
 	.progress-bar-container {

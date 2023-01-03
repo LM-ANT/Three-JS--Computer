@@ -15,7 +15,7 @@ void main() {
     float p = abs( fract( lineCount * vUv.y + ( time * speed ) ) * 2.0 - 1.0 );
     vec3 color = mix( color1, color2, vec3( p ) );
     gl_FragColor = vec4( color, 1 );
-    gl_FragColor.a = 0.2;
+    gl_FragColor.a = 0.5;
 }
 
 `
