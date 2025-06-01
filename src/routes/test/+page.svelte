@@ -1,5 +1,5 @@
 <script>
-	//import setupLight from '/src/assets/threeJs/light.js';
+	//import setupLight from '/assets/threeJs/light.js';
 
 	import { onMount } from 'svelte';
 
@@ -71,7 +71,7 @@
 			new THREE.Vector2(window.innerWidth, window.innerHeight),
 			bloomParams.bloomStrength,
 			bloomParams.bloomRadius,
-			bloomParams.bloomThreshold,
+			bloomParams.bloomThreshold
 		);
 
 		bloomComposer = new EffectComposer(renderer);
@@ -82,9 +82,9 @@
 		const loader = new GLTFLoader();
 
 		Promise.all([
-			loader.loadAsync('src/assets/models/lightStreet.glb'),
-			loader.loadAsync('src/assets/models/signStreet.glb'),
-			loader.loadAsync('src/assets/models/buildings.glb')
+			loader.loadAsync('/assets/models/lightStreet.glb'),
+			loader.loadAsync('/assets/models/signStreet.glb'),
+			loader.loadAsync('/assets/models/buildings.glb')
 		]).then((models) => {
 			// get what you need from the models array
 			const neon = models[0].scene;
@@ -132,8 +132,7 @@
 
 		function animate() {
 			requestAnimationFrame(animate);
-			
-	
+
 			renderer.clear();
 			camera.layers.set(1);
 			bloomComposer.render();

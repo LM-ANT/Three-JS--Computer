@@ -683,7 +683,7 @@
 
 		// Créer le pool d'objets Audio
 		for (let i = 0; i < poolSize; i++) {
-			const sound = new Audio('src/assets/sounds/type.wav');
+			const sound = new Audio('/assets/sounds/type.wav');
 			sound.volume = 0.5;
 			sound.preload = 'auto';
 			audioPool.push(sound);
@@ -790,11 +790,11 @@
 
 		// Chargement des textures optimisé
 		const textureFiles = {
-			normalMap: 'src/assets/textures/H89_Normal.png',
-			texture: 'src/assets/textures/H89_Light_BaseColor.png',
-			roughnessMap: 'src/assets/textures/H89_Roughness.png',
-			aoMap: 'src/assets/textures/H89_AO.png',
-			metalnessMap: 'src/assets/textures/H89_Metallic.png'
+			normalMap: '/assets/textures/H89_Normal.png',
+			texture: '/assets/textures/H89_Light_BaseColor.png',
+			roughnessMap: '/assets/textures/H89_Roughness.png',
+			aoMap: '/assets/textures/H89_AO.png',
+			metalnessMap: '/assets/textures/H89_Metallic.png'
 		};
 
 		const textures = {};
@@ -828,7 +828,7 @@
 			depthWrite: false
 		});
 
-		loader.load('src/assets/models/ordinateur.obj', function (obj) {
+		loader.load('/assets/models/ordinateur.obj', function (obj) {
 			obj.traverse(function (child) {
 				if (child instanceof THREE.Mesh) {
 					// Filtrer pour ne garder que les éléments du clavier (position Y proche de 0)
