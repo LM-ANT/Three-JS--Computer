@@ -420,9 +420,7 @@
 			const screenMaterial = new THREE.MeshBasicMaterial({
 				map: texture,
 				transparent: true,
-				side: THREE.DoubleSide,
-				emissive: new THREE.Color(0x004400), // Émission verte plus intense
-				emissiveIntensity: 0.8
+				side: THREE.DoubleSide
 			});
 
 			// Créer la géométrie de l'écran (plan)
